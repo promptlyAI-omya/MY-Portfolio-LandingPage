@@ -975,10 +975,11 @@ section {
 
 .testimonial-section {
     max-width: 700px;
-    margin: 0 auto;
+    margin: var(--space-2xl) auto 0;
 }
 
-.testimonial-card {
+/* Early Projects Card (replaces testimonial) */
+.early-projects-card {
     background: var(--bg-card);
     border-radius: var(--radius-xl);
     border: 1px solid var(--border-color);
@@ -986,39 +987,17 @@ section {
     text-align: center;
 }
 
-.testimonial-text {
-    font-size: var(--font-size-lg);
-    font-style: italic;
-    color: var(--text-secondary);
-    margin-bottom: var(--space-xl);
-    line-height: 1.8;
-}
-
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-md);
-}
-
-.author-avatar {
-    width: 50px;
-    height: 50px;
-    background: var(--accent-gradient);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.early-projects-title {
+    font-size: var(--font-size-xl);
     font-weight: 700;
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
 }
 
-.testimonial-author h4 {
+.early-projects-text {
     font-size: var(--font-size-base);
-}
-
-.testimonial-author p {
-    font-size: var(--font-size-sm);
-    color: var(--text-muted);
+    color: var(--text-secondary);
+    line-height: 1.7;
 }
 
 /* ========================================
