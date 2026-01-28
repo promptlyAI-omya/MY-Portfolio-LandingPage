@@ -3,7 +3,7 @@
    All interactive functionality for the site
 ======================================== */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize all functionality
     initNavbar();
     initMobileMenu();
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ======================================== */
 function initNavbar() {
     const navbar = document.getElementById('navbar');
-    
+
     function handleScroll() {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -27,15 +27,15 @@ function initNavbar() {
             navbar.classList.remove('scrolled');
         }
     }
-    
+
     // Initial check
     handleScroll();
-    
+
     // Add scroll listener with throttle for performance
     let ticking = false;
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         if (!ticking) {
-            window.requestAnimationFrame(function() {
+            window.requestAnimationFrame(function () {
                 handleScroll();
                 ticking = false;
             });
@@ -51,25 +51,25 @@ function initMobileMenu() {
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     if (!navToggle || !navMenu) return;
-    
+
     // Toggle menu on button click
-    navToggle.addEventListener('click', function() {
+    navToggle.addEventListener('click', function () {
         navMenu.classList.toggle('active');
         navToggle.classList.toggle('active');
     });
-    
+
     // Close menu when a link is clicked
-    navLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
+    navLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
             navMenu.classList.remove('active');
             navToggle.classList.remove('active');
         });
     });
-    
+
     // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
             navMenu.classList.remove('active');
             navToggle.classList.remove('active');
@@ -82,22 +82,22 @@ function initMobileMenu() {
 ======================================== */
 function initSmoothScroll() {
     const links = document.querySelectorAll('a[href^="#"]');
-    
-    links.forEach(function(link) {
-        link.addEventListener('click', function(e) {
+
+    links.forEach(function (link) {
+        link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            
+
             // Skip if just "#"
             if (href === '#') return;
-            
+
             const target = document.querySelector(href);
-            
+
             if (target) {
                 e.preventDefault();
-                
+
                 const navbarHeight = document.getElementById('navbar').offsetHeight;
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -112,9 +112,9 @@ function initSmoothScroll() {
 ======================================== */
 function initBackToTop() {
     const backToTopBtn = document.getElementById('backToTop');
-    
+
     if (!backToTopBtn) return;
-    
+
     // Show/hide button based on scroll position
     function toggleBackToTop() {
         if (window.scrollY > 500) {
@@ -123,15 +123,15 @@ function initBackToTop() {
             backToTopBtn.classList.remove('visible');
         }
     }
-    
+
     // Initial check
     toggleBackToTop();
-    
+
     // Add scroll listener
     window.addEventListener('scroll', toggleBackToTop);
-    
+
     // Scroll to top on click
-    backToTopBtn.addEventListener('click', function() {
+    backToTopBtn.addEventListener('click', function () {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -140,55 +140,79 @@ function initBackToTop() {
 }
 
 /* ========================================
-   CONTACT FORM HANDLING
+   CONTACT FORM HANDLING (Formspree Integration)
 ======================================== */
 function initContactForm() {
     const form = document.getElementById('contactForm');
-    
+
     if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
+
+    form.addEventListener('submit', function (e) {
         e.preventDefault();
-        
-        // Get form data
-        const formData = {
-            name: document.getElementById('name').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            subject: document.getElementById('subject').value.trim(),
-            budget: document.getElementById('budget').value,
-            message: document.getElementById('message').value.trim()
-        };
-        
-        // Basic validation
-        if (!formData.name || !formData.email || !formData.message) {
+
+        // Get form field values
+        const nameField = document.getElementById('name');
+        const emailField = document.getElementById('email');
+        const messageField = document.getElementById('message');
+
+        const name = nameField.value.trim();
+        const email = emailField.value.trim();
+        const message = messageField.value.trim();
+
+        // Basic validation - Name, Email, Message required
+        if (!name || !email || !message) {
             showNotification('Please fill in all required fields.', 'error');
             return;
         }
-        
+
         // Email validation
-        if (!isValidEmail(formData.email)) {
+        if (!isValidEmail(email)) {
             showNotification('Please enter a valid email address.', 'error');
             return;
         }
-        
-        // Simulate form submission (replace with actual backend integration)
+
+        // Prepare form data for Formspree
+        const formData = new FormData(form);
+
         const submitBtn = form.querySelector('.btn-submit');
         const originalText = submitBtn.innerHTML;
-        
+
         submitBtn.innerHTML = 'Sending...';
         submitBtn.disabled = true;
-        
-        // Simulate API call delay
-        setTimeout(function() {
-            // Success! In production, replace with actual form submission
-            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-            form.reset();
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            
-            // Log form data (for demo purposes)
-            console.log('Form submitted:', formData);
-        }, 1500);
+
+        // Submit to Formspree via AJAX
+        fetch('https://formspree.io/f/mpqrarlv', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    // Success
+                    showNotification("Thanks! I'll contact you shortly.", 'success');
+                    form.reset();
+                } else {
+                    // Error from Formspree
+                    return response.json().then(function (data) {
+                        if (data.errors) {
+                            showNotification(data.errors.map(function (err) { return err.message; }).join(', '), 'error');
+                        } else {
+                            showNotification('Something went wrong. Please try again.', 'error');
+                        }
+                    });
+                }
+            })
+            .catch(function (error) {
+                // Network error
+                showNotification('Network error. Please check your connection and try again.', 'error');
+                console.error('Form submission error:', error);
+            })
+            .finally(function () {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
     });
 }
 
@@ -203,12 +227,12 @@ function showNotification(message, type) {
     // Remove existing notification if any
     const existing = document.querySelector('.notification');
     if (existing) existing.remove();
-    
+
     // Create notification element
     const notification = document.createElement('div');
     notification.className = 'notification ' + type;
     notification.innerHTML = '<span>' + message + '</span><button class="notification-close">&times;</button>';
-    
+
     // Add styles dynamically
     notification.style.cssText = '\
         position: fixed;\
@@ -228,7 +252,7 @@ function showNotification(message, type) {
         color: white;\
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);\
     ';
-    
+
     // Add animation keyframes
     if (!document.getElementById('notification-styles')) {
         const style = document.createElement('style');
@@ -236,16 +260,16 @@ function showNotification(message, type) {
         style.textContent = '@keyframes slideUp { from { transform: translateX(-50%) translateY(100px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }';
         document.head.appendChild(style);
     }
-    
+
     document.body.appendChild(notification);
-    
+
     // Close button functionality
-    notification.querySelector('.notification-close').addEventListener('click', function() {
+    notification.querySelector('.notification-close').addEventListener('click', function () {
         notification.remove();
     });
-    
+
     // Auto-remove after 5 seconds
-    setTimeout(function() {
+    setTimeout(function () {
         if (notification.parentElement) {
             notification.remove();
         }
@@ -260,19 +284,19 @@ function initAnimations() {
     const animatedElements = document.querySelectorAll(
         '.project-card, .pricing-card, .why-card, .highlight-item, .contact-card, .about-image, .about-text'
     );
-    
+
     if (!animatedElements.length) return;
-    
+
     // Add initial styles for animation
-    animatedElements.forEach(function(el) {
+    animatedElements.forEach(function (el) {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     });
-    
+
     // Create observer
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
             if (entry.isIntersecting) {
                 // Add staggered delay for grid items
                 const parent = entry.target.parentElement;
@@ -281,10 +305,10 @@ function initAnimations() {
                     const index = siblings.indexOf(entry.target);
                     entry.target.style.transitionDelay = (index * 0.1) + 's';
                 }
-                
+
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                
+
                 // Unobserve after animation
                 observer.unobserve(entry.target);
             }
@@ -293,9 +317,9 @@ function initAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     });
-    
+
     // Observe elements
-    animatedElements.forEach(function(el) {
+    animatedElements.forEach(function (el) {
         observer.observe(el);
     });
 }
@@ -313,20 +337,20 @@ function setCurrentYear() {
 /* ========================================
    ACTIVE NAV LINK HIGHLIGHTING
 ======================================== */
-(function() {
+(function () {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     function highlightNavLink() {
         const scrollPos = window.scrollY + 100;
-        
-        sections.forEach(function(section) {
+
+        sections.forEach(function (section) {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
-            
+
             if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinks.forEach(function(link) {
+                navLinks.forEach(function (link) {
                     link.classList.remove('active');
                     if (link.getAttribute('href') === '#' + sectionId) {
                         link.classList.add('active');
@@ -335,7 +359,7 @@ function setCurrentYear() {
             }
         });
     }
-    
+
     window.addEventListener('scroll', highlightNavLink);
     highlightNavLink();
 })();
@@ -343,20 +367,20 @@ function setCurrentYear() {
 /* ========================================
    TYPING EFFECT FOR HERO (Optional)
 ======================================== */
-(function() {
+(function () {
     // Add typing animation for code window if desired
     const codeBody = document.querySelector('.code-body code');
     if (!codeBody) return;
-    
+
     // Store original content
     const originalContent = codeBody.innerHTML;
-    
+
     // Optional: Add a subtle cursor blink effect
     const cursor = document.createElement('span');
     cursor.className = 'typing-cursor';
     cursor.innerHTML = '|';
     cursor.style.cssText = 'animation: blink 1s infinite; color: #6366f1;';
-    
+
     // Add blink animation
     if (!document.getElementById('cursor-styles')) {
         const style = document.createElement('style');
@@ -364,7 +388,7 @@ function setCurrentYear() {
         style.textContent = '@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }';
         document.head.appendChild(style);
     }
-    
+
     // Append cursor to code body
     codeBody.appendChild(cursor);
 })();
