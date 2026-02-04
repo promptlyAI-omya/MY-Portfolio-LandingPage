@@ -1146,19 +1146,44 @@ section {
 .social-links {
     display: flex;
     gap: var(--space-md);
+    align-items: center;
 }
 
 .social-link {
-    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
     background: var(--bg-tertiary);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-sm);
+    border-radius: var(--radius-lg);
     color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-base);
+}
+
+.social-link svg {
+    width: 20px;
+    height: 20px;
+    transition: var(--transition-base);
 }
 
 .social-link:hover {
-    background: var(--accent-primary);
-    color: var(--text-primary);
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.25);
+}
+
+.social-link:hover svg {
+    transform: scale(1.1);
+}
+
+.social-link:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 .footer-links {
