@@ -935,6 +935,82 @@ section {
 }
 
 /* ========================================
+   AI SOLUTIONS SECTION
+======================================== */
+.ai-solutions {
+    background: var(--bg-primary);
+}
+
+.ai-solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.ai-solution-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-lg);
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-color);
+    padding: var(--space-xl);
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-solution-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent-gradient);
+    opacity: 0;
+    transition: var(--transition-base);
+}
+
+.ai-solution-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glow);
+}
+
+.ai-solution-card:hover::before {
+    opacity: 1;
+}
+
+.ai-solution-icon {
+    font-size: 2rem;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: var(--radius-lg);
+    flex-shrink: 0;
+}
+
+.ai-solution-content h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+}
+
+.ai-solution-content p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ========================================
    WHY ME SECTION
 ======================================== */
 .why-grid {
@@ -1479,7 +1555,8 @@ section {
     /* Grids to single column */
     .projects-grid,
     .pricing-grid,
-    .why-grid {
+    .why-grid,
+    .ai-solutions-grid {
         grid-template-columns: 1fr;
     }
 
