@@ -1,0 +1,564 @@
+/* ========================================
+   FREE WEBSITE PAGE - DEDICATED STYLES
+   Extends the main style.css design system.
+   No global overrides — all scoped to fw-* classes.
+======================================== */
+
+/* ========================================
+   HERO SECTION
+======================================== */
+.fw-hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: calc(var(--space-4xl) + 60px) 0 var(--space-4xl);
+    overflow: hidden;
+    text-align: center;
+}
+
+.fw-hero-content {
+    max-width: 750px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.fw-hero-content .hero-title {
+    font-size: clamp(2rem, 5vw, var(--font-size-5xl));
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: var(--space-lg);
+}
+
+.fw-hero-content .hero-description {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+    text-align: center;
+}
+
+/* ========================================
+   VALUE SECTION (What You Get)
+======================================== */
+.fw-value {
+    background: var(--bg-secondary);
+}
+
+.fw-value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+}
+
+.fw-value-grid .fw-value-card:nth-child(4),
+.fw-value-grid .fw-value-card:nth-child(5) {
+    /* Center last 2 cards in a 3-col grid */
+}
+
+.fw-value-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-color);
+    padding: var(--space-xl);
+    text-align: center;
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.fw-value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+    opacity: 0;
+    transition: var(--transition-base);
+}
+
+.fw-value-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-glow);
+}
+
+.fw-value-card:hover::before {
+    opacity: 1;
+}
+
+.fw-value-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: var(--radius-xl);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fw-value-card h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+}
+
+.fw-value-card p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ========================================
+   HOW IT WORKS
+======================================== */
+.fw-how {
+    background: var(--bg-primary);
+}
+
+.fw-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-xl);
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.fw-step {
+    flex: 1;
+    max-width: 280px;
+    text-align: center;
+    position: relative;
+}
+
+.fw-step-number {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 auto var(--space-lg);
+    box-shadow: var(--shadow-glow);
+}
+
+.fw-step h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+}
+
+.fw-step p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.fw-step-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--border-color);
+    margin-top: 28px;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   TRANSPARENCY SECTION
+======================================== */
+.fw-transparency {
+    background: var(--bg-secondary);
+    padding: var(--space-3xl) 0;
+}
+
+.fw-transparency-card {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    background: var(--bg-card);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border-color);
+    padding: var(--space-3xl) var(--space-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.fw-transparency-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+}
+
+.fw-transparency-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-lg);
+}
+
+.fw-transparency-card h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+}
+
+.fw-transparency-card p {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   WHO THIS IS FOR / NOT FOR
+======================================== */
+.fw-audience {
+    background: var(--bg-primary);
+}
+
+.fw-audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.fw-audience-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-color);
+    padding: var(--space-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.fw-audience-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+}
+
+.fw-for::before {
+    background: var(--success);
+}
+
+.fw-not-for::before {
+    background: var(--error);
+}
+
+.fw-audience-card h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-lg);
+    color: var(--text-primary);
+}
+
+.fw-audience-card ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.fw-audience-card li {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    padding-left: var(--space-md);
+    position: relative;
+    line-height: 1.6;
+}
+
+.fw-for li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: 700;
+}
+
+.fw-not-for li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--error);
+    font-weight: 700;
+}
+
+/* ========================================
+   SCARCITY SECTION
+======================================== */
+.fw-scarcity {
+    background: var(--bg-secondary);
+    padding: var(--space-2xl) 0;
+}
+
+.fw-scarcity-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    padding: var(--space-lg) var(--space-xl);
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: var(--radius-xl);
+    max-width: 600px;
+    margin: 0 auto;
+    animation: subtlePulse 3s ease-in-out infinite;
+}
+
+@keyframes subtlePulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.15);
+    }
+}
+
+.fw-scarcity-icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+}
+
+.fw-scarcity-banner p {
+    font-size: var(--font-size-lg);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.fw-scarcity-banner strong {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========================================
+   APPLICATION FORM
+======================================== */
+.fw-apply {
+    background: var(--bg-primary);
+}
+
+.fw-form-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.fw-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    background: var(--bg-card);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border-color);
+    padding: var(--space-2xl);
+}
+
+.fw-form .form-group label {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.fw-form .form-group input,
+.fw-form .form-group textarea,
+.fw-form .form-group select {
+    padding: var(--space-md);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    transition: var(--transition-base);
+    font-size: var(--font-size-sm);
+}
+
+.fw-form .form-group input:focus,
+.fw-form .form-group textarea:focus,
+.fw-form .form-group select:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.fw-form .form-group input::placeholder,
+.fw-form .form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.fw-form .form-group select {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+}
+
+.fw-form .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.fw-form .btn-submit {
+    grid-column: 1 / -1;
+    margin-top: var(--space-sm);
+}
+
+/* Success Message */
+.fw-success-message {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-lg);
+    background: var(--bg-card);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border-color);
+    padding: var(--space-3xl) var(--space-xl);
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fw-success-icon {
+    font-size: 4rem;
+}
+
+.fw-success-message h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.fw-success-message p {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    max-width: 450px;
+    line-height: 1.7;
+}
+
+/* ========================================
+   RESPONSIVE — FREE WEBSITE PAGE
+======================================== */
+
+/* Tablet (1024px) */
+@media (max-width: 1024px) {
+    .fw-value-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fw-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fw-step {
+        max-width: 400px;
+    }
+
+    .fw-step-divider {
+        width: 2px;
+        height: 40px;
+        margin: 0;
+    }
+}
+
+/* Tablet Portrait (768px) */
+@media (max-width: 768px) {
+    .fw-hero {
+        padding: calc(var(--space-4xl) + 40px) 0 var(--space-3xl);
+        min-height: auto;
+    }
+
+    .fw-value-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .fw-audience-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fw-form {
+        grid-template-columns: 1fr;
+        padding: var(--space-xl);
+    }
+
+    .fw-transparency-card {
+        padding: var(--space-xl);
+    }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+    .fw-hero-content .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .fw-hero-content .hero-description {
+        font-size: var(--font-size-base);
+    }
+
+    .fw-scarcity-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-sm);
+        padding: var(--space-md);
+    }
+
+    .fw-scarcity-banner p {
+        font-size: var(--font-size-base);
+    }
+
+    .fw-form {
+        padding: var(--space-lg);
+    }
+
+    .fw-transparency-card {
+        padding: var(--space-lg);
+    }
+}
+
+/* Mobile Small (375px) */
+@media (max-width: 375px) {
+    .fw-hero-content .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .fw-form {
+        padding: var(--space-md);
+    }
+}
